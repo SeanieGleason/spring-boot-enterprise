@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>spring-boot-enterprise-build</artifactId>
+        <groupId>com.enterprise</groupId>
+        <version>${revision}</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+    <artifactId>spring-boot-enterprise-project</artifactId>
+    <packaging>pom</packaging>
+    <name>Spring Boot Enterprise Project</name>
+    <description>Spring Boot Enterprise Project</description>
+    <properties>
+        <main.basedir>${basedir}/..</main.basedir>
+    </properties>
+    <modules>
+        <module>spring-boot-enterprise-dependencies</module>
+        <module>spring-boot-enterprise-parent</module>
+        <module>spring-boot-enterprise</module>
+        <module>spring-boot-enterprise-starters</module>
+    </modules>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>flatten-maven-plugin</artifactId>
+                <inherited>false</inherited>
+                <executions>
+                    <execution>
+                        <!-- Flatten and simplify our own POM for install/deploy -->
+                        <id>flatten</id>
+                        <phase>process-resources</phase>
+                        <goals>
+                            <goal>flatten</goal>
+                        </goals>
+                        <configuration>
+                            <updatePomFile>true</updatePomFile>
+                            <pomElements>
+                                <parent>expand</parent>
+                                <name>keep</name>
+                                <description>keep</description>
+                                <url>expand</url>
+                                <properties>keep</properties>
+                                <pluginManagement>keep</pluginManagement>
+                                <dependencyManagement>keep</dependencyManagement>
+                                <build>keep</build>
+                            </pomElements>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>flatten-clean</id>
+                        <phase>clean</phase>
+                        <goals>
+                            <goal>clean</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+        </plugins>
+    </build>
+</project>

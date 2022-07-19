@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <artifactId>spring-boot-enterprise-starters</artifactId>
+        <groupId>com.enterprise</groupId>
+        <version>${revision}</version>
+    </parent>
+    <artifactId>spring-boot-enterprise-starter</artifactId>
+    <name>Spring Boot Starter</name>
+    <description>Core starter, including auto-configuration support</description>
+    <properties>
+        <main.basedir>${basedir}/../../..</main.basedir>
+    </properties>
+    <scm>
+        <url>${git.url}</url>
+        <connection>${git.connection}</connection>
+        <developerConnection>${git.developerConnection}</developerConnection>
+    </scm>
+    <dependencies>
+        <dependency>
+            <groupId>com.enterprise</groupId>
+            <artifactId>spring-boot-enterprise</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.enterprise</groupId>
+            <artifactId>spring-boot-enterprise-autoconfigure</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-bootstrap</artifactId>
+        </dependency>
+    </dependencies>
+</project>
