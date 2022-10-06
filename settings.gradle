@@ -1,0 +1,54 @@
+pluginManagement {
+    repositories {
+        mavenCentral()
+        gradlePluginPortal()
+    }
+    resolutionStrategy {
+        eachPlugin {
+            if (requested.id.id == "org.jetbrains.kotlin.jvm") {
+                useVersion "${kotlinVersion}"
+            }
+            if (requested.id.id == "org.jetbrains.kotlin.plugin.spring") {
+                useVersion "${kotlinVersion}"
+            }
+        }
+    }
+}
+
+plugins {
+    id "com.gradle.enterprise" version "3.10.3"
+   //TODO  id "io.spring.ge.conventions" version "0.0.11"
+}
+
+rootProject.name="spring-boot-enterprise-build"
+
+settings.gradle.projectsLoaded {
+    gradleEnterprise {
+        buildScan {
+            def toolchainVersion = settings.gradle.rootProject.findProperty('toolchainVersion')
+            if (toolchainVersion != null) {
+                value('Toolchain version', toolchainVersion)
+                tag("JDK-$toolchainVersion")
+            }
+            def buildDir = settings.gradle.rootProject.getBuildDir()
+            buildDir.mkdirs()
+            new File(buildDir, "build-scan-uri.txt").text = "build scan not generated"
+            buildScanPublished { scan ->
+                buildDir.mkdirs()
+                new File(buildDir, "build-scan-uri.txt").text = "<${scan.buildScanUri}|build scan>\n"
+            }
+        }
+    }
+}
+//
+include "spring-boot-project:spring-boot-dependencies"
+include "spring-boot-project:spring-boot-parent"
+include "spring-boot-project:spring-boot-tools:spring-boot-autoconfigure-processor"
+include "spring-boot-project:spring-boot-tools:spring-boot-configuration-processor"
+include "spring-boot-project:spring-boot-tools:spring-boot-test-support"
+include "spring-boot-project:spring-boot"
+include "spring-boot-project:spring-boot-autoconfigure"
+
+file("${rootDir}/spring-boot-project/spring-boot-starters").eachDirMatch(~/spring-boot-starter.*/) {
+    include "spring-boot-project:spring-boot-starters:${it.name}"
+}

@@ -1,0 +1,67 @@
+plugins {
+    id "java-library"
+    id "org.jetbrains.kotlin.jvm"
+    id "org.springframework.boot.conventions"
+    id "org.springframework.boot.configuration-properties"
+    id "org.springframework.boot.deployed"
+    id "org.springframework.boot.optional-dependencies"
+}
+
+description = "Spring Boot"
+
+def tomcatConfigProperties = "$buildDir/tomcat-config-properties"
+
+configurations {
+    tomcatDistribution
+}
+
+dependencies {
+
+    testImplementation(project(":spring-boot-project:spring-boot-tools:spring-boot-test-support"))
+}
+
+task extractTomcatConfigProperties(type: Sync) {
+    destinationDir = file(tomcatConfigProperties)
+    from {
+        zipTree(configurations.tomcatDistribution.incoming.files.singleFile).matching {
+            include '**/conf/catalina.properties'
+        }.singleFile
+    }
+}
+
+def syncJavaTemplates = tasks.register("syncJavaTemplates", Sync) {
+    from("src/main/javaTemplates")
+    into("build/generated-sources/main")
+    def properties = ["springBootVersion": project.version]
+    expand(properties)
+    inputs.properties(properties)
+}
+
+tasks.named("checkFormatMain") {
+    def generatedSources = fileTree("build/generated-sources/main")
+    // Exclude source generated from the templates as expand(properties) changes line endings on Windows
+    exclude { candidate -> generatedSources.contains(candidate.file) }
+    // Add the templates to check that the input is correctly formatted
+    source(fileTree("src/main/javaTemplates"))
+}
+
+plugins.withType(EclipsePlugin) {
+    eclipse {
+        synchronizationTasks syncJavaTemplates
+    }
+}
+
+sourceSets {
+    main {
+        java {
+            srcDirs syncJavaTemplates
+        }
+    }
+    test {
+        output.dir(tomcatConfigProperties, builtBy: "extractTomcatConfigProperties")
+    }
+}
+
+test {
+    jvmArgs += "--add-opens=java.base/java.net=ALL-UNNAMED"
+}
