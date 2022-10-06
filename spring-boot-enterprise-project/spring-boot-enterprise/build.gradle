@@ -1,0 +1,35 @@
+plugins {
+    id "java-library"
+    id "com.enterprise.conventions"
+}
+
+description = "Spring Boot Enterprise"
+
+dependencies {
+    api "com.github.ben-manes.caffeine:caffeine"
+    api "org.springframework:spring-context"
+    api "org.springframework:spring-messaging"
+    api "org.springframework:spring-tx"
+    api ("org.springframework.retry:spring-retry") {
+        exclude group: "org.springframework"
+    }
+    implementation "com.fasterxml.jackson.core:jackson-core"
+    implementation "com.fasterxml.jackson.core:jackson-databind"
+    optional "com.fasterxml.jackson.datatype:jackson-datatype-jdk8"
+    optional "com.fasterxml.jackson.datatype:jackson-datatype-jsr310"
+    optional "com.fasterxml.jackson.datatype:jackson-datatype-joda"
+    optional "com.jayway.jsonpath:json-path"
+    optional "io.projectreactor:reactor-core"
+    testImplementation "org.junit.jupiter:junit-jupiter"
+    testRuntimeOnly "org.junit.platform:junit-platform-launcher"
+    testRuntimeOnly "ch.qos.logback:logback-classic"
+    testImplementation "org.assertj:assertj-core"
+    testImplementation "org.awaitility:awaitility"
+    testImplementation "org.hamcrest:hamcrest"
+    testImplementation "org.mockito:mockito-junit-jupiter"
+    testImplementation "org.springframework:spring-test"
+}
+
+test {
+    testLogging.showStandardStreams = true
+}

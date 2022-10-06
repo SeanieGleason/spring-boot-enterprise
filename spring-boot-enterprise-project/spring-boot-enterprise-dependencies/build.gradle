@@ -1,0 +1,36 @@
+plugins {
+    id "java-platform"
+    id "com.enterprise.conventions"
+    id "com.enterprise.bom"
+}
+
+javaPlatform {
+    allowDependencies()
+}
+
+bom {
+    effectiveBomArtifact()
+    upgrade {
+        policy = "any"
+        gitHub {
+            issueLabels = ["type: dependency-upgrade"]
+        }
+    }
+    library("Spring Boot Enterprise", "${version}") {
+        group("com.enterprise") {
+            modules = [
+                    "spring-boot-enterprise",
+                    "spring-boot-enterprise-autoconfigure",
+                    "spring-boot-enterprise-starter",
+            ]
+        }
+    }
+    library("Spring Boot Framework", "${version}") {
+        group("org.springframework.boot") {
+            imports = [
+                    "spring-boot-dependencies"
+            ]
+        }
+    }
+
+}

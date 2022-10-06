@@ -1,26 +1,19 @@
 = Spring Boot Enterprise
 :Spring-docs: https://docs.spring.io/spring-boot/docs/current-SNAPSHOT/reference
 :github: https://github.com/gleasonsean/spring-boot-enterprise
+:maven-bom: https://maven.apache.org/guides/introduction/introduction-to-dependency-mechanism.html#bill-of-materials-bom-poms
+:spring-boot-dependencies: https://github.com/spring-projects/spring-boot/tree/main/spring-boot-project/spring-boot-dependencies
 
-Spring Boot Enterprise helps you to build internal Spring Boot libraries at any company with absolute minimum fuss.
-It takes an opinionated way of building internal libraries on the Spring platform so that new and existing users can quickly get up and running.
+The Spring Boot approach to building enterprise libraries at your company.
+By building on the same principals as the {Spring-docs}\html[Spring Boot Project], you too can build auto-configuration and
+{maven-bom}[Bills of Material] for your company with minimum fuss.
 
 == Installation and Getting Started
-Simply fork this repository and replace 'enterprise' with your company name.
+Simply fork this repository and perform the following:
 
-Then include the `spring-boot-enterprise-starter-parent` as your parent pom:
+TODO
 
-[source,xml,indent=0]
-----
-<!-- Inherit defaults from Spring Boot -->
-<parent>
-    <groupId>com.enterprise</groupId>
-    <artifactId>spring-boot-enterprise-starter-parent</artifactId>
-    <version>${LATEST}</version>
-</parent>
-----
-
-The Spring Boot {Spring-docs}/html/[reference documentation] includes detailed {Spring-docs}/html/getting-started.html#getting-started-installing-spring-boot[installation instructions] as well as a comprehensive {Spring-docs}/html/getting-started.html#getting-started-first-application[``getting started``] guide.
+The Spring Boot {Spring-docs}/html/[reference documentation] already includes detailed {Spring-docs}/html/getting-started.html#getting-started-installing-spring-boot[installation instructions] as well as a comprehensive {Spring-docs}/html/getting-started.html#getting-started-first-application[``getting started``] guide.
 
 == Modules
 
@@ -29,9 +22,9 @@ Here is a quick overview:
 
 === spring-boot-enterprise
 
-The main library providing features that support the other parts of Spring Boot Enterprise.
+The main library providing features that support the other parts of Spring Boot.
 
-=== spring-boot--enterprise-autoconfigure
+=== spring-boot-enterprise-autoconfigure
 
 Spring Boot Enterprise can configure large parts of typical applications based on the content of their classpath.
 Since it uses Spring Boot underneath the covers, a single `@EnableAutoConfiguration` annotation triggers auto-configuration of the Spring context.
@@ -39,11 +32,8 @@ Since it uses Spring Boot underneath the covers, a single `@EnableAutoConfigurat
 Auto-configuration attempts to deduce which beans a user might need.
 Auto-configuration will always back away as the user starts to define their own beans.
 
-=== spring-boot-enterprise-starters
+=== spring-boot-enterprise-dependencies
 
-Starters are a set of convenient dependency descriptors that you can include in your application.
-You get a one-stop shop for all the Spring and related technology you need without having to hunt through sample code and copy-paste loads of dependency descriptors.
-
-== License
-
-Spring Boot Enterprise is Open Source software released under the https://www.apache.org/licenses/LICENSE-2.0.html[Apache 2.0 license].
+Provides a {maven-bom}[Bill of Materials] for the entire Spring Boot Enterprise project.  This project extends the
+{spring-boot-dependencies}[Spring Boot Dependencies BOM] to allow for custom libraries to be built with a compatability
+in mind by locking in an assigned Spring Boot version.

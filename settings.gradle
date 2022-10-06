@@ -1,0 +1,32 @@
+pluginManagement {
+	repositories {
+		mavenCentral()
+		gradlePluginPortal()
+		maven { url 'https://repo.spring.io/milestone' }
+		maven { url 'https://repo.spring.io/snapshot' }
+	}
+}
+
+plugins {
+	id 'com.gradle.enterprise' version '3.10.2'
+	//id 'io.spring.ge.conventions' version '0.0.7'
+}
+
+settings.gradle.projectsLoaded {
+	gradleEnterprise {
+		buildScan {
+			publishOnFailure()
+		}
+	}
+}
+
+rootProject.name = 'spring-boot-enterprise-build'
+include 'spring-boot-enterprise-project:spring-boot-enterprise-dependencies'
+include 'spring-boot-enterprise-project:spring-boot-enterprise'
+include 'spring-boot-enterprise-project:spring-boot-enterprise-autoconfigure'
+
+
+file("${rootDir}/spring-boot-enterprise-project/spring-boot-enterprise-starters").eachDirMatch(~/spring-boot-enterprise-starter.*/) {
+	include "spring-boot-enterprise-project:spring-boot-enterprise-starters:${it.name}"
+}
+

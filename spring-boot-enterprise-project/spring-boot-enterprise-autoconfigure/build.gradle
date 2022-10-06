@@ -1,0 +1,24 @@
+plugins {
+    id "java-library"
+    id "com.enterprise.conventions"
+    id "com.enterprise.configuration-properties"
+}
+
+description = "Spring Boot Enterprise Auto-configuration"
+
+dependencies {
+    annotationProcessor "org.springframework.boot:spring-boot-autoconfigure-processor"
+    annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
+
+    api project (":spring-boot-enterprise-project:spring-boot-enterprise")
+    api "org.springframework.boot:spring-boot"
+    api "org.springframework.boot:spring-boot-autoconfigure"
+    api "org.springframework.boot:spring-boot-starter"
+    api "org.springframework.boot:spring-boot-starter-validation"
+
+    testImplementation "org.springframework.boot:spring-boot-starter-test"
+}
+
+test {
+    testLogging.showStandardStreams = true
+}
