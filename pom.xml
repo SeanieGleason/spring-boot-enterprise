@@ -6,7 +6,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.7.1</version>
+        <version>2.7.6-SNAPSHOT</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.enterprise</groupId>
@@ -16,8 +16,8 @@
     <name>Spring Boot Enterprise Build</name>
     <description>Spring Boot Enterprise Build</description>
     <properties>
-        <spring.boot.version>2.7.1</spring.boot.version>
-        <spring-cloud.version>2021.0.1</spring-cloud.version>
+        <spring.boot.version>2.7.6-SNAPSHOT</spring.boot.version>
+        <spring-cloud.version>2021.0.4</spring-cloud.version>
         <revision>${spring.boot.version}-SNAPSHOT</revision>
         <main.basedir>${basedir}</main.basedir>
         <flatten-maven-plugin.version>1.1.0</flatten-maven-plugin.version>
@@ -25,6 +25,18 @@
     <modules>
         <module>spring-boot-enterprise-project</module>
     </modules>
+    <repositories>
+        <repository>
+            <id>repository.spring.snapshot</id>
+            <name>Spring Snapshot Repository</name>
+            <url>http://repo.spring.io/snapshot</url>
+        </repository>
+        <repository>
+            <id>repository.spring.milestone</id>
+            <name>Spring Milestone Repository</name>
+            <url>http://repo.spring.io/milestone</url>
+        </repository>
+    </repositories>
     <distributionManagement>
         <snapshotRepository>
             <id>sonatype-nexus-snapshots</id>

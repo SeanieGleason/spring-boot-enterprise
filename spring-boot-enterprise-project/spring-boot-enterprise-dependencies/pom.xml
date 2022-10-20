@@ -32,12 +32,6 @@
     </developers>
     <properties>
         <main.basedir>${basedir}/..</main.basedir>
-        <mapstruct.version>1.5.1.Final</mapstruct.version>
-        <jacoco.version>0.8.8</jacoco.version>
-        <springdoc.version>1.6.9</springdoc.version>
-        <asciidoctor-plugin.version>2.2.2</asciidoctor-plugin.version>
-        <jib-maven-plugin.version>3.2.1</jib-maven-plugin.version>
-        <karate.version>1.2.0.RC6</karate.version>
         <flatten-maven-plugin.version>1.1.0</flatten-maven-plugin.version>
     </properties>
     <dependencyManagement>
@@ -60,28 +54,6 @@
                 <groupId>com.enterprise</groupId>
                 <artifactId>spring-boot-enterprise-autoconfigure</artifactId>
                 <version>${revision}</version>
-            </dependency>
-            <!-- Third Party -->
-            <dependency>
-                <groupId>com.intuit.karate</groupId>
-                <artifactId>karate-junit5</artifactId>
-                <version>${karate.version}</version>
-                <scope>test</scope>
-            </dependency>
-            <dependency>
-                <groupId>org.mapstruct</groupId>
-                <artifactId>mapstruct</artifactId>
-                <version>${mapstruct.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.springdoc</groupId>
-                <artifactId>springdoc-openapi-ui</artifactId>
-                <version>${springdoc.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.springdoc</groupId>
-                <artifactId>springdoc-openapi-hateoas</artifactId>
-                <version>${springdoc.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
